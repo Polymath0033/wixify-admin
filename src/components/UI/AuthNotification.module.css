@@ -1,0 +1,27 @@
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: var(--inter);
+    color: #7c7c7c;
+    /* margin-top: -100px; */
+}
+
+.header h1 {
+    color: var(--primary);
+    font-family: var(--inter);
+}
+
+.img {
+    /* display: flex;
+    justify-content: center;
+    margin: 0 auto; */
+    margin: auto;
+}
+
+.img img {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+}

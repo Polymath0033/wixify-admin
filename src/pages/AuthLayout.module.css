@@ -1,0 +1,45 @@
+.header {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    position: fixed;
+    right: 3rem;
+    top: 1rem;
+    align-items: center;
+}
+
+.header button {
+    all: unset;
+    font-weight: bold;
+    color: #072052;
+}
+
+.header button:last-child {
+    color: #fff;
+    text-align: center;
+    border-radius: 25px;
+    background-color: #10be7e;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    box-shadow: 0 0 4px rgba(16, 190, 126, 0.05);
+    cursor: pointer;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    flex-direction: column;
+    z-index: 10000;
+}
+
+.auth {
+    width: 40%;
+}

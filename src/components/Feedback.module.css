@@ -1,0 +1,109 @@
+.list,
+.reply {
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    position: relative;
+}
+
+.image {
+    display: flex;
+    gap: 0.7rem;
+}
+
+.detail {
+    color: #2d2d2d;
+}
+
+.image small {
+    opacity: 0.6;
+}
+
+.image img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+}
+
+.message {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+}
+
+.message button {
+    all: unset;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.div {
+    display: grid;
+    margin-top: -1rem;
+    gap: 0.6rem;
+}
+
+.div i {
+    font-style: normal;
+    /* color: #292d32; */
+    letter-spacing: 0.5rem;
+    font-weight: bold;
+}
+
+.div i span {
+    color: #292d32 !important;
+}
+
+.feedback {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.reply {
+    position: relative;
+    right: -135px;
+    width: 80%;
+}
+
+.input input {
+    width: 100%;
+    border-radius: 6px;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid #d2d2d2;
+    padding: 1rem 10rem;
+}
+
+.input p {
+    position: absolute;
+    left: 0;
+    margin-top: 0.8rem;
+    margin-left: 1rem;
+    font-weight: bold;
+}
+
+.name {
+    color: var(--primary);
+}
+
+.input button {
+    all: unset;
+    position: absolute;
+    right: 0;
+    color: #fff;
+    background-color: var(--primary);
+    border-radius: 5px;
+    z-index: 100;
+    padding: 0.5rem 2rem;
+    margin-top: 0.5rem;
+    margin-right: 1rem;
+    text-transform: uppercase;
+}
+
+.input button i {
+    margin-right: 0.7rem;
+}

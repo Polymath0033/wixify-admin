@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre");
+@import url("https://fonts.googleapis.com/css?family=Inter");
+.header {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    background-color: #fff;
+}
+
+.head {
+    display: flex;
+    color: var(--primary);
+    border-right: 1px solid #0000001a;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.head h1 {
+    font-family: "Frank Ruhl Libre" !important;
+}
+
+.header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 100%;
+}
+
+.header li {
+    font-family: "Inter";
+}
+
+.header li:first-child {
+    color: var(--primary);
+}
+
+.header ul li {
+    align-items: center;
+}
+
+.header li:first-child span {
+    font-weight: 100;
+    font-size: 0.8rem;
+}
+
+.header ul h4 {
+    color: var(--primary);
+}
+
+.header li:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.search {
+    position: relative;
+}
+
+.div {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.header div input {
+    display: flex;
+    border-radius: 5px;
+    padding: 0.4rem 0.5rem 0.4rem 1.4rem;
+    width: 100%;
+    align-items: center;
+    font-family: "Inter";
+    border: none;
+    outline: none;
+    background-color: #f3f4f6;
+}
+
+.search-icon {
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3a3a3a;
+}
+
+.icon {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3a3a3a;
+    position: relative;
+    padding-right: 1rem;
+}
+
+.dot {
+    position: absolute;
+    content: "";
+    background-color: #ff4b4b;
+    width: 6px;
+    height: 6px;
+    top: 4px;
+    right: 25px;
+    border-radius: 50%;
+}
+
+.header ul li:last-child span {
+    font-size: 0.9rem;
+    color: #9d9d9d;
+}

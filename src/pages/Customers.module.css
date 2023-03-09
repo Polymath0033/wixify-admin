@@ -1,0 +1,33 @@
+.h1 {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.customers {
+  padding: 0.8rem 1rem;
+}
+
+.top {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.top li {
+  padding: 1rem 0;
+  color: #676767;
+}
+
+.ul {
+  display: grid;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  position: relative;
+}

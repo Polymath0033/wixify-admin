@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Inter");
+@font-face {
+    font-family: primary-font;
+    src: url("assets/Fellix-Regular.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: primary-font;
+}
+
+:root {
+    --primary: #1ae198;
+    --inter: "Inter";
+}
