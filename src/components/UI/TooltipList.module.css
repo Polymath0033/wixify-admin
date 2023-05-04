@@ -14,12 +14,20 @@
     gap: 10px;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    right: 0;
+    top: 2.4rem;
+    width: 130%;
 }
 
-.list li {
+.list li,
+.list a {
     padding-left: 0.6rem;
     padding-right: 0.8rem;
     color: #344054;
+    cursor: pointer;
     font-size: 12px;
-    /* font-weight: lighter; */
+}
+
+.list a {
+    text-decoration: none;
 }

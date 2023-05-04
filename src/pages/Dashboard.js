@@ -8,6 +8,7 @@ import {
   AvailableIcon,
   ArrowIcon,
 } from "../components/icons";
+import useNaira from "../Hooks/use-naira";
 //import Chart from "../components/UI/Chart";
 import Chart from "../components/Chart";
 //let date = "";
@@ -16,6 +17,7 @@ const Dashboard = () => {
   // const [change, setChange] = useState("monthly");
   const inputRef = useRef();
   const changeHandler = (e) => {};
+  const { amountNaira } = useNaira();
   const dashboard = [
     {
       title: "Total Rides",
@@ -25,7 +27,7 @@ const Dashboard = () => {
     {
       title: "Total Rides Amount",
       icon: <RidersIcon />,
-      value: 1000000,
+      value: amountNaira(1000000),
     },
     {
       title: "Pending Rides",

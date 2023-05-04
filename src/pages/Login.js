@@ -4,7 +4,6 @@ import classes from "./Auth.module.css";
 import Button from "../components/UI/Button";
 import { EyeSlash } from "../components/icons";
 import { Eye } from "../components/icons";
-//import useAuth from "../Hooks/use-auth";
 import AuthContext from "../store";
 import { authApi } from "../lib/auth";
 
@@ -37,24 +36,7 @@ const Login = () => {
 
     try {
       setIsLoading(true);
-      // const response = await fetch(
-      //   "https://brainy-walkingstick.cyclic.app/admin/login",
-      //   {
-      //     method: "POST",
-      //     body: JSON.stringify(payload),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-      // const { response, data } = loginApi(payload);
-
-      //const response = await api.response;
       const data = await authApi(payload);
-      // const data = await response.json();
-      // if (!response.ok) {
-      //   throw new Error(data.message || "Failed to authenticate");
-      // }
       authContext.login(data.token);
       if (!error) {
         navigate("/admin");

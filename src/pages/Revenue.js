@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useReducer, useState } from "react";
 import Chart from "../components/Chart";
 import { RidersIcon, RequestIcon } from "../components/icons";
-import classes from "./Dashboard.module.css";
-import classes_ from "./Revenue.module.css";
-import Modal from "../components/UI/Modal";
-import Button from "../components/UI/Button";
-import Cancel from "../components/UI/Cancel";
-import AuthContext from "../store";
+import classes from "./Revenue.module.css";
+import Withdraw from "../components/UI/Withdraw";
+import Success from "../components/UI/Success";
+import useNaira from "../Hooks/use-naira";
 const years = [
   "January",
   "February",
@@ -21,7 +19,21 @@ const years = [
   "November",
   "December",
 ];
+const initialState = {
+  modal: false,
+  alert: false,
+};
+const reducer = (state, action) => {
+  if (action.type === "modal") {
+    return { modal: state.modal ? false : true };
+  } else if (action.type === "alert") {
+    return { alert: state.alert ? false : true, modal: false };
+  } else {
+    throw new Error();
+  }
+};
 const Revenue = () => {
+  const { amountNaira } = useNaira();
   const data = [
     {
       title: "Total Rides",
@@ -31,10 +43,7 @@ const Revenue = () => {
     {
       title: "Total Rides Amount",
       icon: <RidersIcon />,
-      value: Number("10000000").toLocaleString("en-NG", {
-        style: "currency",
-        currency: "NGN",
-      }),
+      value: amountNaira("10000000"),
     },
     {
       title: "Pending Rides",
@@ -78,44 +87,13 @@ const Revenue = () => {
     ],
   });
 
-  const [modal, setModal] = useState(false);
-  const [alert, setAlert] = useState(false);
-  const toggleModal = () => {
-    setModal((prev) => (prev = !prev));
-  };
-  const { token } = useContext(AuthContext);
-  console.log(token);
-  useEffect(() => {
-    fetch("https://brainy-walkingstick.cyclic.app/admin/grant", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((e) => console.log(e));
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  // useEffect(() => {
-  //   fetch("https://api.flutterwave.com/v3/banks/NG", {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer FLWSECK_TEST-1a2164d007ed79532733105a756cd5b8-X`,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data))
-  //     .catch((e) => console.log(e));
-  // });
-  const availableAmount = Number("300000").toLocaleString("en-US", {
-    style: "currency",
-    currency: "NGN",
-  });
-  const toggleAlert = () => {
-    setModal(false);
-    setAlert((prev) => (prev = !prev));
-  };
+  const [banks, setBanks] = useState([]);
+  fetch("https://nigerianbanks.xyz")
+    .then((res) => res.json())
+    .then((data) => setBanks(data))
+    .catch((e) => console.log(e));
   return (
     <section className={classes.revenue}>
       <div className={classes.top}>
@@ -126,42 +104,28 @@ const Revenue = () => {
       </div>
       <article className={classes.article}>
         <div>
-          <h2>{availableAmount}</h2>
+          <h2>{amountNaira("300000")}</h2>
           <p>Available Amount</p>
-          <button onClick={toggleModal}>Withdraw</button>
-          {modal && (
-            <Modal toggleModal={toggleModal}>
-              <form className={classes_.form}>
-                <p className={classes_["modal-header"]}>Enter your details</p>
-                <input
-                  type="text"
-                  name="holder_name"
-                  id="holder_name"
-                  placeholder="Bank account's holder name"
-                />
-                <input
-                  type="text"
-                  name="account_name"
-                  id="account_name"
-                  placeholder="Bank account Number"
-                />
-                <select name="bank_name" id="bank_name" placeholder="Bank Name">
-                  <option value="Bank Name">Bank Name</option>
-                </select>
-                <Button value={"Proceed"} onClick={toggleAlert} />
-                <Cancel value={"cancel"} onClick={toggleModal} />
-              </form>
-            </Modal>
+          <button
+            className={classes.button}
+            onClick={() => {
+              dispatch({ type: "modal" });
+            }}
+          >
+            Withdraw
+          </button>
+          {state.modal && (
+            <Withdraw
+              toggleModal={() => dispatch({ type: "modal" })}
+              banks={banks}
+              toggleAlert={() => {
+                dispatch({ type: "alert" });
+              }}
+            />
           )}
-          {alert && (
-            <Modal toggleModal={toggleAlert}>
-              <div className={classes_.alert}>
-                <div className={classes_.loading}></div>
-                <h5>Great Wittig</h5>
-                <p>You've successfully Withdrawn N5000 from your account</p>
-              </div>
-              <Button value={"Back"} onClick={toggleAlert} />
-            </Modal>
+
+          {state.alert && (
+            <Success toggleAlert={() => dispatch({ type: "alert" })} />
           )}
         </div>
       </article>

@@ -1,5 +1,5 @@
 import classes from "./SearchFilter.module.css";
-import { SearchIcon, FilterIcon, ExportIcon } from "../icons";
+import { SearchIcon, FilterIcon } from "../icons";
 import { useState } from "react";
 import TooltipList from "./TooltipList";
 const SearchFilter = (exportData, filterData, input, placeholder) => {
@@ -34,9 +34,9 @@ const SearchFilter = (exportData, filterData, input, placeholder) => {
           {filterTab && <TooltipList list={filterData} />}
         </button>
         <button onClick={toggleExp}>
-          <i>
+          {/* <i>
             <ExportIcon />
-          </i>
+          </i> */}
           Export
           {exportTab && <TooltipList list={exportData} />}
         </button>

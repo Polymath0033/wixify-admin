@@ -1,11 +1,11 @@
 import { useState } from "react";
 import classes from "./Drivers.module.css";
-import Table from "../components/UI/Table";
+import DriversTable from "../components/UI/DriversTable";
 import { SortIcon } from "../components/icons";
 import TooltipList from "../components/UI/TooltipList";
 import { json, useLoaderData } from "react-router-dom";
 
-const Drivers = () => {
+const Drivers = ({ setRoom,socket }) => {
   const [tab, showTab] = useState(false);
   const posts = useLoaderData();
   if (posts.isError === true) {
@@ -33,20 +33,26 @@ const Drivers = () => {
               <SortIcon />
             </i>
             sort
+            {tab && (
+              <TooltipList
+                list={[
+                  { title: "Name A - Z", name: "name" },
+                  { title: "Highest Rides", name: "ride" },
+                  { title: "Highest amount made", name: "amount" },
+                ]}
+              />
+            )}
           </button>
-
-          {tab && (
-            <TooltipList
-              list={[
-                { title: "Name A - Z", name: "name" },
-                { title: "Highest Rides", name: "ride" },
-                { title: "Highest amount made", name: "amount" },
-              ]}
-            />
-          )}
         </div>
       </div>
-      <Table posts={posts} dataLimit={10} pageLimit={10} head={thead} />
+      <DriversTable
+        setRoom={setRoom}
+        socket={socket}
+        posts={posts}
+        dataLimit={10}
+        pageLimit={10}
+        head={thead}
+      />
     </section>
   );
 };

@@ -8,7 +8,8 @@ const useTable = (data, dataLimit, pageLimit) => {
     setCurrentPage((page) => page - 1);
   };
   function changePage(event) {
-    const pageNumber = Number(event.target.textContent);
+    //const pageNumber = Number(event.target.textContent);
+    const pageNumber = Number(event);
     setCurrentPage(pageNumber);
   }
   const getPaginatedData = () => {

@@ -1,100 +1,96 @@
-import classes from "./Chat.module.css";
+import { useState, useEffect, useRef } from "react";
 import avatar from "../assets/unsplash_TSZo17r3m0s.png";
 import { SendIcon } from "./icons";
-import { useRef, useState } from "react";
-const Chat = () => {
-  const [messages, setMessages] = useState([
-    {
-      driver: "You are chatting with Wittig Driver",
-      request: "Hello, I am Muhammad and you are",
-      date: new Date().toISOString(),
-    },
-  ]);
-  const inputRef = useRef();
-  const socket = new WebSocket("ws://localhost:3000/customers-feedback");
-  socket.onopen = (e) => {
-    console.log("Connection  is established");
-    console.log("Sending server");
-    socket.send(console.log("Hi John"));
-  };
-  socket.onmessage = (event) => {
-    console.log(`message  sent ${event.data}`);
-  };
-  socket.onclose = (event) => {
-    if (event.wasClean) {
-      console.log(
-        `Connection closed cleanly code=${event.code}  reason=${event.reason}`
-      );
-    } else {
-      console.log("Connection died");
+import classes from "./Chat.module.css";
+import { useMatches } from "react-router-dom";
+let room = "";
+const Chat = ({ socket }) => {
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const location = useMatches();
+  const scroll = useRef();
+  location.map(({ params }) => socket.emit("join_room", params.chat));
+  location.map(({ params }) => (room = params.chat));
+  const sendMessage = async () => {
+    if (message === "") {
+      return;
     }
-  };
-  socket.onerror = (e) => {
-    console.log(`Error ${e}`);
-  };
-  const addMessage = () => {
-    // e.preventDefault();
-    const input = inputRef.current.value;
-    const message = [
-      { driver: "", request: input, date: new Date().toISOString() },
-    ];
-    console.log(message);
-    setMessages([
-      ...messages,
-      { driver: "", request: input, date: new Date().toISOString() },
-    ]);
-    socket.onopen = () => {
-      socket.send(
-        setMessages([
-          ...messages,
-          { driver: "", request: input, date: new Date().toISOString() },
-        ])
-      );
+    const messageData = {
+      room: room,
+      username: "Wittig",
+      message: message,
+      time:
+        new Date(Date.now()).getHours() +
+        ":" +
+        new Date(Date.now()).getMinutes(),
     };
-    inputRef.current.value = "";
-  };
-  return (
-    <div className={classes.chat}>
-      <header className={classes["chat-header"]}>
-        <img src={avatar} alt="profile" />
-        <div>
-          <h2>Muhammad Jamiu </h2>
-          <p>online</p>
-        </div>
-      </header>
-      {messages.map((message) => (
-        <div className={classes["chat-inner"]} key={message.date}>
-          <div className={classes.date}>
-            <h6>Today</h6>
-          </div>
-          <div className={classes.driver}>
-            {message.driver.length > 0 && <p>{message.driver}</p>}
-          </div>
-          <div className={classes.request}>
-            {message.request.length > 0 && <p>{message.request}</p>}
-          </div>
-        </div>
-      ))}
+    await socket.emit("send_message", messageData);
 
-      <div className={classes.bottom}>
-        <h1>+</h1>
-        <input
-          type="text"
-          name="message"
-          id="message"
-          placeholder="Type message here"
-          minLength={1}
-          required
-          ref={inputRef}
-        />
-        <button onClick={addMessage} type="button">
-          <i>
-            <SendIcon />
-          </i>
-          send
-        </button>
+    setMessages((list) => [...list, messageData]);
+    // scroll.current.scrollIntoView({ behavior: "smooth" });
+    // console.log(scroll);
+  };
+  useEffect(() => {
+    if (scroll.current) {
+      scroll.current.scrollTop = scroll.current.scrollHeight;
+    }
+  }, [messages]);
+  useEffect(() => {
+    socket.on("received_message", (data) => {
+      setMessages((list) => [...list, data]);
+    });
+    // return () => socket.off("received_message");
+  }, [socket]);
+  return (
+    <>
+      <div className={classes.chat}>
+        <header className={classes["chat-header"]}>
+          <img src={avatar} alt="profile" />
+          <div>
+            <h2>Muhammad Jamiu </h2>
+            <p>online </p>
+          </div>
+        </header>
+        <div ref={scroll}>
+          {messages?.map((message, index) => (
+            <div className={classes["chat-inner"]} key={index}>
+              <div className={classes.date}>
+                {/* <h6>{message.time}</h6> */}
+              </div>
+              <div
+                className={
+                  message.username === "Wittig"
+                    ? classes.request
+                    : classes.driver
+                }
+              >
+                {message.message.length > 0 && <p>{message.message}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className={classes.bottom}>
+          <h1>+</h1>
+          <input
+            type="text"
+            name="message"
+            id="message"
+            placeholder="Type message here"
+            minLength={1}
+            required
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+          <button type="submit" onClick={sendMessage}>
+            <i>
+              <SendIcon />
+            </i>
+            send
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Chat;

@@ -1,10 +1,18 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import classes from "./Aside.module.css";
 import { LogoutIcon, OrderIcon, RevenueIcon } from "../icons";
 import { FeedbackIcon } from "../icons";
+import { useContext } from "react";
+import AuthContext from "../../store";
 
 const Aside = () => {
   const activeLinkClass = (nav) => (nav.isActive ? classes.active : "");
+  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    authContext.isLogin = false;
+    navigate("/");
+  };
   return (
     <aside className={classes.aside}>
       <ul>
@@ -22,7 +30,7 @@ const Aside = () => {
         </li>
         <li>
           <NavLink to="drivers" className={activeLinkClass}>
-            <i class="bi bi-car-front-fill"></i>
+            <i className="bi bi-car-front-fill"></i>
             Drivers
           </NavLink>
         </li>
@@ -39,7 +47,11 @@ const Aside = () => {
           </NavLink>
         </li>
       </ul>
-      <button>
+      <button
+        onClick={() => {
+          logout();
+        }}
+      >
         <i>
           <LogoutIcon />
         </i>

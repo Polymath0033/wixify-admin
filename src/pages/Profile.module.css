@@ -1,0 +1,45 @@
+.profile {
+  padding: 0.7rem;
+}
+
+.div {
+  margin-bottom: 2rem;
+}
+
+.div h2,
+.div p {
+  color: #072052;
+  margin-top: 0.5rem;
+}
+
+.img img {
+  margin-bottom: -2rem;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.article {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 3rem;
+  width: 100%;
+  margin-top: 3.5rem;
+}
+
+.label {
+  color: var(--primary);
+  margin-bottom: 0.8rem;
+  text-transform: capitalize;
+}
+
+.value {
+  background-color: #fff;
+  color: #3a3a3a;
+  width: 100%;
+  padding: 0.5rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  font-size: 16px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}

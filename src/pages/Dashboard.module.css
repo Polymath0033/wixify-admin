@@ -87,30 +87,7 @@
   color: #0c0d0d;
 }
 
-.revenue {
-  padding: 1rem;
-}
-
-.article {
-  background-image: url("../assets/Balance.png");
-  width: 100%;
-  background-size: cover;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
-  margin-bottom: 2rem;
-}
-
-.article div {
-  display: grid;
-  gap: 1rem;
-  width: 100%;
-  place-items: center;
-  /* place-content: center; */
-}
-
+/* 
 .article h2 {
   color: #fff;
 }
@@ -136,5 +113,5 @@
 .charts-bar {
   margin-top: 3rem;
   width: 80%;
-  /* height: 300px; */
-}
+  
+} */

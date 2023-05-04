@@ -1,4 +1,8 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  redirect,
+} from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/Dashboard";
 import Orders from "./pages/Orders";
@@ -15,18 +19,38 @@ import Reset from "./pages/Reset";
 import Success from "./pages/Success";
 import Notification from "./pages/Notification";
 import Revenue from "./pages/Revenue";
+import Profile, { loader as profileLoader } from "./pages/Profile";
+import Chat from "./components/Chat";
+import { useCallback, useEffect } from "react";
+import { https } from "./lib/http";
+import io from "socket.io-client";
+import { useState } from "react";
+const socket = io.connect("http://localhost:3001");
 function App() {
-  // const routeError = useRouteError();
+  const token = localStorage.getItem("token");
+  const [room, setRoom] = useState("");
+  const fetchData = useCallback(async () => {
+    const data = await https("withdrawal/approve", token, "users's data");
+    console.log(data);
+  }, [token]);
+  useEffect(() => {
+    fetchData();
+    //return () => {};
+  }, [fetchData]);
+
+  const getToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return redirect("/");
+    }
+    return null;
+  };
 
   const router = createBrowserRouter([
     {
       path: "",
       element: <AuthLayout />,
-      // errorElement: (
-      //   <div>
-      //     <h1>There is error</h1>There is error{routeError}
-      //   </div>
-      // ),
+      errorElement: <Error />,
       children: [
         { path: "", element: <Login /> },
         {
@@ -42,21 +66,25 @@ function App() {
     {
       path: "",
       element: <Root />,
+      loader: getToken,
+      errorElement: <Error />,
       children: [
         {
           path: "/admin",
           element: <Dashboard />,
-          errorElement: <Error />,
+          errorElement: <p>Error</p>,
         },
         { path: "/notifications", element: <Notification /> },
         {
-          path: "/orders",
+          path: "orders",
           element: <Orders />,
+
           loader: async () => {
             const response = await fetch(
               "https://jsonplaceholder.typicode.com/posts"
             );
             if (!response.ok) {
+              throw new Error("Failed to fetch order's data");
             }
             const data = await response.json();
             return data;
@@ -64,9 +92,20 @@ function App() {
         },
         {
           path: "drivers",
-          element: <Drivers />,
+          element: <Drivers setRoom={setRoom} socket={socket} />,
           loader: driversLoader,
         },
+        {
+          path: "/drivers/:chat/chat",
+          element: <Chat socket={socket}  />,
+        },
+        {
+          path: "/drivers/:driver",
+          element: <Profile />,
+          loader: profileLoader,
+          index: true,
+        },
+
         {
           path: "customers-feedback",
           element: <Customers />,

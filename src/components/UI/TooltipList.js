@@ -1,5 +1,5 @@
 import classes from "./TooltipList.module.css";
-const TooltipList = ({ list, show }) => {
+const TooltipList = ({ list }) => {
   return (
     <>
       <ul className={classes.list}>
