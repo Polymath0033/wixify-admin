@@ -1,7 +1,7 @@
 import { json } from "react-router-dom";
 export const https = async (http, token, error_message) => {
   const response = await fetch(
-    `https://brainy-walkingstick.cyclic.app/admin/${http}`,
+    `https://wixify.uc.r.appspot.com/admin/${http}`,
     {
       method: "POST",
       headers: {

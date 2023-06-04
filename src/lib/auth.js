@@ -1,4 +1,4 @@
-const http = "https://brainy-walkingstick.cyclic.app/admin/";
+const http = "https://wixify.uc.r.appspot.com/admin/";
 export const authApi = async (payload) => {
   const response = await fetch(`${http}login`, {
     method: "POST",
@@ -13,4 +13,5 @@ export const authApi = async (payload) => {
   }
   return data;
 };
+//https://brainy-walkingstick.cyclic.app
 //const { data } = loginApi();

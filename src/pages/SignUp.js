@@ -65,7 +65,7 @@ const SignUp = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        "https://brainy-walkingstick.cyclic.app/admin/register",
+        "https://wixify.uc.r.appspot.com/admin/register",
         {
           method: "POST",
           body: JSON.stringify(payload),

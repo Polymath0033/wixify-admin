@@ -79,7 +79,7 @@ export const loader = async () => {
   const param = await params;
   console.log(param);
   const response = await fetch(
-    "https://brainy-walkingstick.cyclic.app/admin/driver/6404a525444f37cb705a71a2",
+    "https://wixify.uc.r.appspot.com/admin/driver/6404a525444f37cb705a71a2",
     {
       method: "GET",
       headers: {
