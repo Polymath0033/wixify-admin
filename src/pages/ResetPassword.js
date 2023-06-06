@@ -11,21 +11,11 @@ const ResetPassword = () => {
     e.preventDefault();
     const payload = { email: emailRef.current.value };
     console.log(payload);
-    // fetch("https://brainy-walkingstick.cyclic.app/admin/forgot-password", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(payload),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data))
-    //   .catch((e) => console.log(e));
     try {
       console.log(payload);
       setLoading(true);
       const response = await fetch(
-        "https://brainy-walkingstick.cyclic.app/admin/forgot-password",
+        "https://wixify.uc.r.appspot.com/admin/forgot-password",
         {
           method: "POST",
           body: JSON.stringify(payload),

@@ -4,8 +4,8 @@ let params;
 const Profile = () => {
   const path = useMatches();
   const data = useLoaderData();
- 
-  
+  console.log(data);
+
   path.map(({ params }) => console.log(params.driver));
   const fl = path.filter((f) => f.params);
   let driver = fl[0].params.driver;
@@ -79,7 +79,7 @@ export const loader = async () => {
   const param = await params;
   console.log(param);
   const response = await fetch(
-    "https://wixify.uc.r.appspot.com/admin/driver/6404a525444f37cb705a71a2",
+    "https://wixify.uc.r.appspot.com/admin/drivers",
     {
       method: "GET",
       headers: {
