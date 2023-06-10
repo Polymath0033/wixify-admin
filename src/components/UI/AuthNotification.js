@@ -6,6 +6,7 @@ const AuthNotification = ({
   btnValue,
   btnType,
   children,
+  onclick,
 }) => {
   return (
     <>
@@ -14,7 +15,7 @@ const AuthNotification = ({
         <p>{paragraph}</p>
       </div>
       <div className={classes.img}>{children}</div>
-      <Button value={btnValue} type={btnType} />
+      <Button value={btnValue} type={btnType} onClick={onclick} />
     </>
   );
 };

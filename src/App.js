@@ -25,6 +25,7 @@ import { useCallback, useEffect } from "react";
 import { https } from "./lib/http";
 import io from "socket.io-client";
 import { useState } from "react";
+import ResetPin from "./pages/ResetPin";
 const socket = io.connect("http://localhost:3001");
 function App() {
   const token = localStorage.getItem("token");
@@ -60,6 +61,7 @@ function App() {
         { path: "/reset-password", element: <ResetPassword /> },
         { path: "/forget-password", element: <ForgetPassword /> },
         { path: "/reset", element: <Reset /> },
+        { path: "/reset-pin", element: <ResetPin /> },
         { path: "/success", element: <Success /> },
       ],
     },
@@ -97,7 +99,7 @@ function App() {
         },
         {
           path: "/drivers/:chat/chat",
-          element: <Chat socket={socket}  />,
+          element: <Chat socket={socket} />,
         },
         {
           path: "/drivers/:driver",
